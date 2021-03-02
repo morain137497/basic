@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/basic?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8&useAffectedRows=true
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: isDel
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+logging:
+  level:
+    root: INFO
+    com.basic: debug
+
