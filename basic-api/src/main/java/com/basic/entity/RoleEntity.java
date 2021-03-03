@@ -15,4 +15,8 @@ public class RoleEntity extends CommonEntity{
     private String name;
     // 角色备注
     private String remarks;
+
+    public RoleEntity(Long id, Integer status) {
+        super(id, status);
+    }
 }

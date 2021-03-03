@@ -32,6 +32,6 @@ public class ResUtils {
         if(res == 0)
             throw new ComEx(FailedEnum.NO_UPDATE_DATA);
         if(res < 0)
-            throw new ComEx(FailedEnum.NO_UPDATE_DATA);
+            throw new ComEx(FailedEnum.SYSTEM_FAILED);
     }
 }

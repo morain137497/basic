@@ -1,6 +1,8 @@
 package com.basic.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -10,9 +12,11 @@ import lombok.Data;
  */
 @Data
 @TableName("b_role_rule")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleRuleEntity {
     // 规则id
     private Long ruleId;
     // 角色id
-    private String roleId;
+    private Long roleId;
 }

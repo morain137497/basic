@@ -24,7 +24,7 @@ import java.util.List;
  * @todo:
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends CommonServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -42,14 +42,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        dataWhetherExist(id);
+        dataWhetherExist(id, userMapper);
         if(userMapper.deleteById(id) != 1)
             throw new ComEx(FailedEnum.SYSTEM_FAILED);
     }
 
     @Override
     public void update(UserEntity userEntity) {
-        dataWhetherExist(userEntity.getId());
+        dataWhetherExist(userEntity.getId(), userMapper);
         if(paramWhetherRepeat(UserEntity::getUsername, userEntity.getUsername(), userEntity.getId()))
             throw new ComEx(FailedEnum.USERNAME_REPEAT);
         ResUtils.throwsEx(userMapper.updateById(userEntity));
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateStatus(Long id, Integer status) {
-        dataWhetherExist(id);
+        dataWhetherExist(id, userMapper);
         ResUtils.throwsEx(userMapper.updateById(new UserEntity(id, status)));
     }
 
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void adminRole(Long id, List<Long> roleIdList) {
-        dataWhetherExist(id);
+        dataWhetherExist(id, userMapper);
         int delete = userRoleMapper.delete(new QueryWrapper<UserRoleEntity>().lambda().eq(UserRoleEntity::getUserId, id));
         if(delete < 0)
             throw new ComEx(FailedEnum.SYSTEM_FAILED);
@@ -96,16 +96,5 @@ public class UserServiceImpl implements UserService {
             return false;
         else
             return true;
-    }
-
-    /**
-     * 判断数据是否存在
-     * @param id
-     * @return
-     */
-    private void dataWhetherExist(Long id)
-    {
-        if(StringUtils.isEmpty(userMapper.selectById(id)))
-            throw new ComEx(FailedEnum.DATA_NOT_EXIST);
     }
 }
